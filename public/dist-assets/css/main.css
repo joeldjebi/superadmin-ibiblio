@@ -6,3 +6,7 @@
 div#language_option_table_filter {
     text-align: end;
 }
+
+.show-livre-content .card-icon-big .card-body {
+    padding: 1rem .5rem;
+}

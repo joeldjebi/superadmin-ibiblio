@@ -6,7 +6,7 @@
        >
        <ul class="navigation-left">
           <li class="nav-item {{ $menu == "dashboard" ? 'active' : ''}}">
-            <a class="nav-item-hold" href="#" >
+            <a class="nav-item-hold" href="{{ route('dashboard') }}" >
                <i class="nav-icon i-Bar-Chart"></i ><span class="nav-text">Dashboard</span>
             </a>
              <div class="triangle"></div>
@@ -25,10 +25,10 @@
                 >
              <div class="triangle"></div>
           </li>
-          <li class="nav-item" data-item="apps">
-             <a class="nav-item-hold" href="#"
-                ><i class="nav-icon i-Computer-Secure"></i
-                ><span class="nav-text">Apps</span></a
+          <li class="nav-item {{ $menu == "utilisateur" ? 'active' : ''}}">
+             <a class="nav-item-hold" href="{{ route('utilisateur.index') }}"
+                ><i class="nav-icon i-Administrator"></i
+                ><span class="nav-text">Utilisateurs</span></a
                 >
              <div class="triangle"></div>
           </li>
@@ -297,6 +297,12 @@
              <a href="{{ route('forfait.index') }}"
                 ><i class="nav-icon i-Arrow-Next"></i
                 ><span class="item-name">Forfaits</span></a
+                >
+          </li>
+          <li class="nav-item {{ $menu == "jeton" ? 'active' : ''}}">
+             <a href="{{ route('jeton.index') }}"
+                ><i class="nav-icon i-Receipt-4"></i
+                ><span class="item-name">Pièces</span></a
                 >
           </li>
        </ul>

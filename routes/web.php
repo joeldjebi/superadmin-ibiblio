@@ -12,6 +12,8 @@ use App\Http\Controllers\LangueController;
 use App\Http\Controllers\EditeurController;
 use App\Http\Controllers\ForfaitController;
 use App\Http\Controllers\LivreController;
+use App\Http\Controllers\JetonController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +32,11 @@ Route::group(['middleware' => ['auth']], function (){
     Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::post('/logout', [DashboardController::class, 'logout'])->name('logout');
+    
+    Route::get('/les-jetons', [JetonController::class, 'index'])->name('jeton.index');
+    Route::post('/store-jetons', [JetonController::class, 'store'])->name('jeton.store');
+    Route::post('/update-jetons/{id}', [JetonController::class, 'update'])->name('jeton.update');
+    Route::delete('/destroy-jetons/{id}', [JetonController::class, 'destroy'])->name('jeton.destroy');
     
     Route::get('/les-auteurs', [AuteurController::class, 'index'])->name('auteur.index');
     Route::post('/store-auteurs', [AuteurController::class, 'store'])->name('auteur.store');
@@ -77,7 +84,10 @@ Route::group(['middleware' => ['auth']], function (){
     Route::post('/store-livre', [LivreController::class, 'store'])->name('livre.store');
     Route::post('/update-livre/{id}', [LivreController::class, 'update'])->name('livre.update');
     Route::delete('/destroy-livre/{id}', [LivreController::class, 'destroy'])->name('livre.destroy');
-
+    Route::get('/details-du-livre/{id}', [LivreController::class, 'show'])->name('livre.show');
+    
+    Route::get('/liste-des-utilisateurs', [UserController::class, 'index'])->name('utilisateur.index');
+    Route::get('/details-utilisateur/{id}', [UserController::class, 'show'])->name('utilisateur.show');
 
 
 });

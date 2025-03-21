@@ -29,7 +29,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Libellé</th>
                                     <th scope="col">Prix</th>
-                                    <th scope="col">Durée</th>
+                                    <th scope="col">Durée (en mois)</th>
                                     <th scope="col">Nombre de livre max</th>
                                     <th scope="col">Description</th>
                                     <th scope="col">Actions</th>
@@ -61,7 +61,7 @@
                                                         </div>
                                                         <div class="col-md-12">
                                                             <div class="form-group">
-                                                                <label for="">Durée de l'abonnement du forfait</label>
+                                                                <label for="">Durée de l'abonnement du forfait (en mois)</label>
                                                                 <input class="form-control" name="duree" type="text" value="{{ old("duree")?? $item->duree }}">
                                                             </div>
                                                         </div>
@@ -134,7 +134,7 @@
                                 <input class="form-control" name="prix" type="number">
                             </div>
                             <div class="form-group">
-                                <label for="">Durée en jour</label>
+                                <label for="">Durée (en mois)</label>
                                 <input class="form-control" name="duree" type="number">
                             </div>
                             <div class="form-group">

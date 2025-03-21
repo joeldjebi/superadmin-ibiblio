@@ -49,7 +49,7 @@ class LivreController extends Controller
         }
 
         $data["livres"] = Livre::orderBy('id', 'desc')
-        ->with('type_publication', 'auteur', 'categorie', 'editeur', 'episode', 'chapitre', 'langue', 'file')
+        ->with('type_publication', 'auteur', 'categorie', 'editeur', 'episodes', 'chapitres', 'langue', 'file')
         ->get();
 
         // dd($data["livres"]);
@@ -119,14 +119,18 @@ class LivreController extends Controller
             'titre_episode.*' => $request->type_publication_id == 4 ? 'required|string' : 'nullable|string',
             'description_episode.*' => $request->type_publication_id == 4 ? 'required|string' : 'nullable|string',
             'file_type_episode.*' => $request->type_publication_id == 4 ? 'required|string' : 'nullable|string',
-            'file_episode.*' => ($request->type_publication_id == 4 && $request->file_type_episode == 'upload') ? 'required|file|mimes:jpg,jpeg,png,pdf,docx|max:10240' : 'nullable|file',
+            'file_episode.*' => ($request->type_publication_id == 4 && $request->file_type_episode == 'upload') 
+                ? 'required|file' 
+                : 'nullable|file',
             'url_episode.*' => ($request->type_publication_id == 4 && $request->file_type_episode == 'external_link') ? 'required|string' : 'nullable|string',
 
             // Champs conditionnels pour Audio Book
             'titre_chapitre.*' => $request->type_publication_id == 3 ? 'required|string' : 'nullable|string',
             'description_chapitre.*' => $request->type_publication_id == 3 ? 'required|string' : 'nullable|string',
             'file_type_chapitre.*' => $request->type_publication_id == 3 ? 'required|string' : 'nullable|string',
-            'file_chapitre.*' => ($request->type_publication_id == 3 && $request->file_type_chapitre == 'upload') ? 'required|file|mimes:jpg,jpeg,png,pdf,docx|max:10240' : 'nullable|file',
+            'file_chapitre.*' => ($request->type_publication_id == 3 && $request->file_type_chapitre == 'upload') 
+                ? 'required|file' 
+                : 'nullable|file',
             'url_chapitre.*' => ($request->type_publication_id == 3 && $request->file_type_chapitre == 'external_link') ? 'required|string' : 'nullable|string',
         ]);
 
@@ -439,10 +443,31 @@ class LivreController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Livre $livre)
+    public function show($id)
     {
-        //
+        $data['title'] = 'Détails du livre';
+        $data['menu'] = 'livre';
+
+        $data['user'] = Super::where([
+            'id' => Auth::user()->id,
+            'role' => 01
+        ])->first();
+
+        if (empty($data['user'])) {
+            // Flash success message
+            session()->flash('type', 'alert-danger');
+            session()->flash('message', 'Une erreur est survenue!');
+        }
+
+        $data['livre'] = Livre::where('id', $id)
+            ->with(['auteur', 'episodes', 'chapitres', 'file', 'type_publication', 'categorie', 'editeur', 'langue', 'createdBy'])
+            ->first();
+
+        // Vous n'avez pas besoin de vérifier si file est null ici, car cela se fait dans la vue
+        return view('livres.show', $data);
     }
+
+
 
     /**
      * Show the form for editing the specified resource.

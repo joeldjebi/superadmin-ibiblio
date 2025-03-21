@@ -39,7 +39,7 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Image de couverture</th>
                                         <th scope="col">Libellé</th>
-                                        <th scope="col">Prix</th>
+                                        <th scope="col">Prix F CFA</th>
                                         <th scope="col">Auteur</th>
                                         <th scope="col">Editeur</th>
                                         <th scope="col">Type de publication</th>
@@ -69,23 +69,26 @@
                                                 @endif
                                             </td>
                                             <td>{{ $item->titre }}</td>
-                                            <td>{{ $nombre_formate }} F CFA</td>
+                                            <td>{{ $nombre_formate }} </td>
                                             <td>{{ $item->auteur->nom }} {{ $item->auteur->prenoms }}</td>
                                             <td>{{ $item->editeur->nom }} {{ $item->editeur->prenoms }}</td>
                                             <td>{{ $item->type_publication->libelle }}</td>
                                             <td>{{ $item->download }}</td>
                                             <td>{{ $item->statut }}</td>
-                                            <td>
+                                            <td style="display: inline-flex; border: none;">
+                                                <a class="text-success mr-2" href="{{ route('livre.show', ['id' => $item->id]) }}">
+                                                    <i class="nav-icon i-Eye font-weight-bold"></i>
+                                                </a>
                                                 <a class="text-success mr-2" href="{{ route('livre.edit', ['id' => $item->id]) }}">
                                                     <i class="nav-icon i-Pen-2 font-weight-bold"></i>
                                                 </a>
-                                                <form action="{{ route('forfait.destroy', ['id' => $item->id]) }}" method="POST" style="display:inline;">
+                                                {{-- <form action="{{ route('forfait.destroy', ['id' => $item->id]) }}" method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-danger" style="background:none; border:none; cursor:pointer;" id="delete">
                                                         <i class="nav-icon i-Close-Window font-weight-bold"></i>
                                                     </button>
-                                                </form> 
+                                                </form>  --}}
                                             </td>
                                         </tr>
                                     @endforeach

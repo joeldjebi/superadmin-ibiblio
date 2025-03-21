@@ -49,23 +49,29 @@ class Livre extends Model
         return $this->belongsTo(Editeur::class);
     }
 
-    public function episode()
+    public function episodes()
     {
-        return $this->belongsTo(Episode::class, 'livre_id');
-    }
+        return $this->hasMany(Episode::class, 'livre_id', 'id');
+    }    
 
-    public function chapitre()
+    public function chapitres()
     {
-        return $this->belongsTo(Chapitre::class, 'livre_id');
+        return $this->hasMany(Chapitre::class, 'livre_id', 'id');
     }
+    
 
+    public function file()
+    {
+        return $this->belongsTo(File::class, 'file_id', 'id');
+    }
+    
     public function langue()
     {
         return $this->belongsTo(Langue::class);
     }
 
-    public function file()
+    public function createdBy()
     {
-        return $this->belongsTo(File::class, 'livre_id');
+        return $this->belongsTo(User::class, 'created_by');
     }
 }

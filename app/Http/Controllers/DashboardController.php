@@ -3,7 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Super;
+use App\Models\User;
+use App\Models\Devise;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Routing\Redirector; 
+use Session;
+use App\Models\Station;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class DashboardController extends Controller
 {
@@ -19,6 +29,9 @@ class DashboardController extends Controller
             'id' => auth()->user()->id,
             'role' => 01
         ])->first();
+
+        // Compter tous les utilisateurs
+        $data['totalUsers'] = User::count();
         
         return view('dashboard',$data);
     }
